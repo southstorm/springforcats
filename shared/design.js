@@ -11,4 +11,11 @@ const replacements={
  storyExtra:['Simple product information. An easy-to-browse collection. More room to focus on the little companion who matters most.','Keep your veterinarian at the heart of treatment decisions. We make the collection easier to navigate, so you can focus on the companion who matters most.'],
  closingTitle:['Here’s to a little more spring.','Big love. One clear next step.']
 };
-export function upgradeSiteDesign(input){const catalog=structuredClone(input);for(const [key,[before,after]]of Object.entries(replacements))if(catalog.content[key]===before)catalog.content[key]=after;return catalog;}
+const quietDefaults={
+ heroTitle:['FIP care. Made clearer.','FIP care essentials'],
+ heroText:['Explore vials, capsule packs and everyday supplies in one place. Clear formats. Straightforward choices. More focus on the cat you love.','Vials, packs of 10 capsules, flavored oral suspension and starter supplies for your cat’s care plan.'],
+ storyTitle:['Small paws. A big part of your life.','Your cat’s care plan.'],
+ storyText:['When your cat needs care, clarity matters. Explore formats, compare packs and find the everyday supplies in one place.','Your veterinarian should guide treatment choices, dosage and administration.'],
+ storyExtra:['Keep your veterinarian at the heart of treatment decisions. We make the collection easier to navigate, so you can focus on the companion who matters most.','Use the shop to compare available formats and pack sizes, then select the products in your cat’s care plan.']
+};
+export function upgradeSiteDesign(input){const catalog=structuredClone(input);for(const [key,[before,after]]of Object.entries(replacements))if(catalog.content[key]===before)catalog.content[key]=after;for(const [key,[before,after]]of Object.entries(quietDefaults))if(catalog.content[key]===before)catalog.content[key]=after;return catalog;}

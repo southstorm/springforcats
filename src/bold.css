@@ -121,3 +121,58 @@ footer{background:#E9EEE7;color:var(--muted)}
 :focus-visible,header a:focus-visible,header button:focus-visible,.hero a:focus-visible{outline-color:var(--brand-text)}
 @media(max-width:1100px){.hero-art.photo-art{box-shadow:12px 12px 0 #DCE5D7}}
 @media(max-width:700px){nav{border-top-color:#D8DDD5}.hero-art.photo-art{box-shadow:8px 8px 0 #DCE5D7}}
+/* Quieter storefront: one header, an undecorated hero, and product-level badges. */
+.hero{padding-top:60px;padding-bottom:64px;min-height:0;gap:75px;grid-template-columns:1fr 1fr}
+.hero-copy{padding:0}
+.hero h1{font-family:Arial,Helvetica,sans-serif;font-size:clamp(38px,4vw,54px);font-weight:600;line-height:1.14;letter-spacing:-1.4px;color:var(--brand);max-width:17ch;margin:0 0 23px}
+.hero-copy>p{font-size:15px;line-height:1.85;max-width:430px;margin-bottom:27px}
+.hero-art.photo-art{transform:none;box-shadow:none;border-radius:12px;aspect-ratio:1/1;max-height:460px;margin-right:0}
+.hero .button.primary{background:var(--brand);color:#FFFFFF;box-shadow:none;font-weight:600;min-width:0;padding:15px 21px}
+.primary,.closing .button.primary,.admin-shell .primary,.add-button{background:var(--brand);color:#FFFFFF}
+.primary:hover,.hero .button.primary:hover,.closing .button.primary:hover,.admin-shell .primary:hover,.add-button:hover{background:var(--brand-text);color:#FFFFFF}
+.add-button:disabled{background:#E2E5E1;color:#526174}
+#landing-view h2{font-weight:600;font-size:clamp(27px,3vw,36px);letter-spacing:-.8px;line-height:1.2;color:var(--ink);margin-top:0}
+.collection-teaser{padding-top:32px;padding-bottom:56px}
+.collection-teaser .section-heading{margin-bottom:27px;align-items:center}
+.collection-teaser .section-heading>p{font-size:13px;max-width:360px}
+.category-title h3{font-weight:600;font-size:25px;letter-spacing:-.5px}
+.category-card{box-shadow:none}
+.category-card:hover{transform:none;box-shadow:0 5px 16px #1E293B08}
+.category-image{height:225px}
+.category-image img{height:160px}
+.approach{display:block;padding-top:40px;padding-bottom:42px;border-top:1px solid var(--line)}
+.approach-copy{max-width:900px}
+.approach-copy h2{font-size:32px!important;max-width:none;margin:0 0 20px}
+.approach-copy>p{max-width:760px;font-size:14px;line-height:1.9}
+.approach-copy .text-link{margin-top:3px}
+.how-it-works{background:transparent;max-width:1440px;padding:38px 6% 55px}
+.how-it-works .section-heading{margin-bottom:25px}
+.steps-grid{margin-top:0;gap:30px}
+.steps-grid article{border-top:1px solid var(--line);padding-top:20px}
+.step-number{background:transparent;color:var(--brand-text);border:1px solid #C4D1BF;width:35px;height:35px;border-radius:50%;font-size:12px;font-weight:600}
+.steps-grid h3{font-size:21px;font-weight:600;letter-spacing:-.3px;margin:20px 0 12px}
+.questions{padding-top:45px;padding-bottom:65px;border-top:1px solid var(--line);gap:65px}
+.questions h2{font-size:32px!important;max-width:330px}
+.questions>div>p{font-size:13px}
+.faq-list summary{font-weight:600}
+footer{background:var(--surface);border-top:1px solid var(--line)}
+footer>.footer-brand{margin-right:auto}
+@media(max-width:1100px){.hero{gap:45px}.hero-art.photo-art{box-shadow:none}.hero h1{font-size:45px}.category-image{height:205px}.category-image img{height:145px}}
+@media(max-width:700px){
+ .hero{grid-template-columns:1fr;gap:30px;padding:35px 6% 38px}
+ .hero h1{font-size:36px;line-height:1.16;letter-spacing:-.8px;max-width:18ch;margin-bottom:19px}
+ .hero-copy>p{font-size:13px;line-height:1.85;margin-bottom:23px}
+ .hero .button.primary{min-width:0;font-size:12px;min-height:46px;padding:14px 19px}
+ .hero-art.photo-art{max-height:370px;aspect-ratio:1/1;box-shadow:none;margin-right:0;border-radius:10px}
+ #landing-view h2{font-size:28px;line-height:1.2;letter-spacing:-.5px}
+ .collection-teaser{padding:28px 6% 37px}
+ .collection-teaser .section-heading>p{font-size:12px;margin-top:13px}
+ .category-card{padding:12px;grid-template-columns:100px 1fr;gap:0 15px}
+ .category-image{height:115px}.category-image img{height:82px}.category-title h3{font-size:23px}
+ .approach{padding:33px 6% 30px}.approach-copy h2{font-size:28px!important;margin-bottom:16px}.approach-copy>p{font-size:13px}
+ .how-it-works{padding:28px 6% 38px}.how-it-works .section-heading>.text-link{margin-top:8px}
+ .steps-grid{gap:22px}.steps-grid article{grid-template-columns:34px 1fr;gap:0 15px}.step-number{width:31px;height:31px;font-size:11px}.steps-grid h3{font-size:20px;margin:3px 0 9px}
+ .questions{padding:33px 6% 40px;gap:20px}.questions h2{font-size:28px!important;max-width:none}.questions>div>p{font-size:12px;margin-top:12px}
+ footer{gap:20px}
+}
+@media(max-width:380px){.hero h1{font-size:33px}.category-card{grid-template-columns:90px 1fr;gap:0 12px}.category-title h3{font-size:21px}}

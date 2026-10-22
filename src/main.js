@@ -15,15 +15,12 @@ try{const saved=JSON.parse(localStorage.getItem('spring-bag-v2')||'[]');if(Array
 function setText(selector,value){const el=document.querySelector(selector);if(el)el.textContent=value;}
 function applyContent(){
  const c=catalog.content;
- setText('.announcement',c.announcement);setText('.hero-copy>.eyebrow',c.heroEyebrow);
- const words=c.heroTitle.trim().split(' ');document.querySelector('#hero-title').innerHTML=words.length>1?`${esc(words.slice(0,-1).join(' '))} <em>${esc(words.at(-1))}</em>`:esc(c.heroTitle);
+ setText('#hero-title',c.heroTitle);
  setText('.hero-copy>p',c.heroText);const hero=document.querySelector('.hero-photo');hero.src=imageUrl(c.heroImage);hero.alt=c.heroAlt;
  setText('.shop h1',c.shopTitle);setText('.shop .section-heading>p',c.shopText);
  setText('.approach-copy h2',c.storyTitle);const paragraphs=document.querySelectorAll('.approach-copy>p');paragraphs[0].textContent=c.storyText;paragraphs[1].textContent=c.storyExtra;
- setText('.closing h2',c.closingTitle);
  document.querySelector('.faq-list').innerHTML=c.faqs.map(f=>`<details><summary>${esc(f.question)}<span>+</span></summary><p>${esc(f.answer)}</p></details>`).join('');
  document.querySelector('#policy-links').innerHTML=[['waiver','Waiver'],['terms','Terms & conditions'],['refundPolicy','Refund policy']].filter(([k])=>c[k].trim()).map(([k,label])=>`<button class="policy-button" data-policy="${k}">${label}</button>`).join('');
- const promos=products.filter(p=>p.promo.enabled&&p.inStock&&p.options.some(o=>o.inStock));const banner=document.querySelector('#promo-banner');banner.hidden=!promos.length||adminActive;banner.innerHTML=`<span>${esc(c.promoBannerText)}</span><strong>Explore featured products ${arrow}</strong>`;
  for(const b of document.querySelectorAll('[data-filter]')){const value=b.dataset.filter;const count=products.filter(p=>value==='all'||p.category===value).length;b.innerHTML=`${value==='all'?'All essentials':categories[value]}${value==='all'?` <span>${count}</span>`:''}`;}
  setText('.preview-label',isPreview?'Offline demo · no real orders or emails':ordersEnabled?'Order requests available · payment arranged separately':'Order requests coming soon');
 }
@@ -92,9 +89,9 @@ function route(){
  document.querySelector('#landing-view').hidden=shop||admin;document.querySelector('#shop-view').hidden=!shop;document.querySelector('#admin-view').hidden=!admin;
  document.querySelector('#open-bag').hidden=admin;
  const shopLink=document.querySelector('nav a');shopLink.classList.toggle('shop-nav-active',shop);
- if(admin){document.title='Your dashboard — Spring for Cats';document.querySelector('#promo-banner').hidden=true;mountAdmin();}
+ if(admin){document.title='Your dashboard — Spring for Cats';mountAdmin();}
  else if(shop){shopLink.setAttribute('aria-current','page');const requested=hash.split('/')[2];category=['vials','oral','kits','promotions'].includes(requested)?requested:'all';query='';document.querySelector('#search').value='';updateFilters();renderProducts();document.title='The collection — Spring for Cats';}
- else{shopLink.removeAttribute('aria-current');document.title='Spring for Cats — FIP care, made clearer.';}
+ else{shopLink.removeAttribute('aria-current');document.title='Spring for Cats — FIP care essentials';}
  if(catalog&&!admin)applyContent();
  const target=!shop&&!admin&&['#our-story','#questions','#how-it-works'].includes(hash)?document.querySelector(hash):null;
  if(target)target.scrollIntoView({behavior:'instant'});else window.scrollTo({top:0,behavior:'instant'});
