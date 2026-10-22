@@ -24,7 +24,6 @@ export function validateCatalog(data){
   if(!['none','flavor','bundle'].includes(p.optionType))fail('Choose a valid option type.');
   if(!p.promo||!Number.isInteger(p.promo.percent)||p.promo.percent<0||p.promo.percent>99)fail('Promo discount must be a whole number from 0 to 99.');
   const promo={enabled:bool(p.promo.enabled,'Promotion'),label:text(p.promo.label,'Promo label',80,true),percent:p.promo.percent};
-  if(promo.enabled&&promo.percent<1)fail('An active promotion needs a discount of at least 1%.');
   if(!Array.isArray(p.options)||p.options.length<1||p.options.length>20)fail('Each product needs 1–20 purchase options.');
   if(p.optionType==='none'&&p.options.length!==1)fail('A product without variants needs exactly one purchase option.');
   const optionIds=new Set();

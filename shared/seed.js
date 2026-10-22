@@ -12,7 +12,7 @@ const initialCatalog = {
     "storyText": "When your cat needs care, even the small decisions can feel big. Spring for Cats brings the essentials together in a calmer, clearer space.",
     "storyExtra": "Simple product information. An easy-to-browse collection. More room to focus on the little companion who matters most.",
     "closingTitle": "Here’s to a little more spring.",
-    "promoBannerText": "A little extra care, for a little less.",
+    "promoBannerText": "A little something worth discovering.",
     "faqs": [
       {
         "question": "How do I choose the right product?",

@@ -22,7 +22,7 @@ Run `npm run admin:create` in an interactive terminal. Enter the owner email and
 
 ## Dashboard
 
-- **Products:** add/edit products and images; set visibility and manual stock overrides; define Chicken/Tuna or other variants; set single/3/5 vial bundle prices; create promotional labels/percentage discounts. Save a draft, then publish. Public catalogue reads only the published snapshot.
+- **Products:** add/edit products and images; set visibility and manual stock overrides; define Chicken/Tuna or other variants; set single/3/5 vial bundle prices; create badges such as “New arrival” or “Back in stock”, with an optional percentage discount (0 keeps the original price). Save a draft, then publish. Public catalogue reads only the published snapshot.
 - **Website text & images:** hero, shop, story, announcement and promotion banner text; photo uploads; FAQs; waiver and policy text. Save draft, then publish.
 - **Stock by SKU:** edit physical quantities. These save immediately, independent of content drafts. Chicken and tuna use separate SKUs. All vial bundles of one product share a SKU and consume `quantity × units` (e.g. two bundles of three reserve six vials). New live SKUs start at **zero**; no real inventory is invented. Retired SKU records are retained for outstanding orders and auditability.
 - **Orders:** view the latest 500 requests, contact/delivery details, item and SKU snapshots, totals, status history, and notification state. Transitions: new → confirmed → fulfilled, or new/confirmed → cancelled. Cancelling restores reserved units exactly once. Fulfilled orders cannot be cancelled in this implementation.

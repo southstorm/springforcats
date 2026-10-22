@@ -18,6 +18,7 @@ test('authenticated drafts, promotions, variants, quotes, uploads and persistenc
   const initial=(await request('/api/catalog')).body;assert.equal(initial.catalog.products.length,9);assert.equal('password' in initial,false);
   let draft=(await request('/api/admin/catalog')).body;const p=draft.catalog.products.find(p=>p.id==='vial-10');p.options.find(o=>o.units===3).priceCents=10000;p.promo={enabled:true,label:'Spring savings',percent:10};
   const suspension=draft.catalog.products.find(p=>p.id==='suspension');suspension.options.find(o=>o.id==='tuna').inStock=false;
+  draft.catalog.products.find(p=>p.id==='vial-65').promo={enabled:true,label:'Back in stock',percent:0};
   draft.catalog.content.heroTitle='A private draft headline';draft.catalog.content.terms='Published terms';
   const invalid=structuredClone(draft);invalid.catalog.products[0].options[0].priceCents=-10;
   assert.equal((await request('/api/admin/catalog',{method:'PUT',data:invalid})).status,400);
@@ -27,6 +28,7 @@ test('authenticated drafts, promotions, variants, quotes, uploads and persistenc
   assert.equal((await request('/api/admin/publish',{method:'POST',data:{revision:1}})).status,409);
   assert.equal((await request('/api/admin/publish',{method:'POST',data:{revision:2}})).status,200);
   assert.equal((await request('/api/catalog')).body.catalog.content.heroTitle,'A private draft headline');
+  const badgeQuote=(await request('/api/bag/quote',{method:'POST',data:{items:[{productId:'vial-65',optionId:'pack-3',quantity:1}]}})).body;assert.equal(badgeQuote.totalCents,6900,'banner-only promotion must keep the original bundle price');
   const quote=await request('/api/bag/quote',{method:'POST',auth:false,data:{items:[{productId:'vial-10',optionId:'pack-3',quantity:2,priceCents:1}]}});assert.equal(quote.status,200);assert.equal(quote.body.totalCents,18000,'server owns discounted bundle price');assert.equal(quote.body.lines[0].units,3);
   const out=await request('/api/bag/quote',{method:'POST',auth:false,data:{items:[{productId:'suspension',optionId:'tuna',quantity:1}]}});assert.equal(out.body.available,false);assert.equal(out.body.totalCents,0);assert.match(out.body.lines[0].error,/out of stock/);
   assert.equal((await request('/api/bag/quote',{method:'POST',data:{items:[{productId:'vial-10',optionId:'pack-3',quantity:-1}]}})).status,400);
