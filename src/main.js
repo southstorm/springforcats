@@ -1,5 +1,6 @@
 import './style.css';
 import './admin.css';
+import './bold.css';
 import {unitNoun} from '../shared/capsules.js';
 import {api,isPreview,imageUrl} from './data.js';
 import {money,effectivePrice,optionAvailable,escapeHtml as esc,categories} from '../shared/catalog.js';
@@ -93,9 +94,9 @@ function route(){
  const shopLink=document.querySelector('nav a');shopLink.classList.toggle('shop-nav-active',shop);
  if(admin){document.title='Your dashboard — Spring for Cats';document.querySelector('#promo-banner').hidden=true;mountAdmin();}
  else if(shop){shopLink.setAttribute('aria-current','page');const requested=hash.split('/')[2];category=['vials','oral','kits','promotions'].includes(requested)?requested:'all';query='';document.querySelector('#search').value='';updateFilters();renderProducts();document.title='The collection — Spring for Cats';}
- else{shopLink.removeAttribute('aria-current');document.title='Spring for Cats — A little care. A new beginning.';}
+ else{shopLink.removeAttribute('aria-current');document.title='Spring for Cats — FIP care, made clearer.';}
  if(catalog&&!admin)applyContent();
- const target=!shop&&!admin&&['#our-story','#questions'].includes(hash)?document.querySelector(hash):null;
+ const target=!shop&&!admin&&['#our-story','#questions','#how-it-works'].includes(hash)?document.querySelector(hash):null;
  if(target)target.scrollIntoView({behavior:'instant'});else window.scrollTo({top:0,behavior:'instant'});
 }
 async function loadCatalog(){
