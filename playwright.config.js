@@ -1,0 +1,2 @@
+import {defineConfig} from '@playwright/test';
+export default defineConfig({testDir:'./tests',testMatch:'**/*.spec.js',fullyParallel:false,workers:1,use:{baseURL:'http://127.0.0.1:5174',launchOptions:{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium'}},webServer:{command:'node tests/start-server.mjs',url:'http://127.0.0.1:5174',reuseExistingServer:false},projects:[{name:'desktop',use:{browserName:'chromium',viewport:{width:1440,height:1000}}},{name:'mobile',use:{browserName:'chromium',viewport:{width:390,height:844},isMobile:true,hasTouch:true}}]});

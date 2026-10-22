@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const root=path.resolve('dist');
+let html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const assetFiles=fs.readdirSync(path.join(root,'assets'));
+const css=fs.readFileSync(path.join(root,'assets',assetFiles.find(f=>f.endsWith('.css'))),'utf8');
+const js=fs.readFileSync(path.join(root,'assets',assetFiles.find(f=>f.endsWith('.js'))),'utf8');
+const mime={'.avif':'image/avif','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png'};
+const images=Object.fromEntries(fs.readdirSync(path.join(root,'images')).filter(f=>mime[path.extname(f)]).map(f=>[`/images/${f}`,`data:${mime[path.extname(f)]};base64,${fs.readFileSync(path.join(root,'images',f)).toString('base64')}`]));
+for(const [file,data] of Object.entries(images))html=html.replaceAll(file,data);
+html=html.replace(/<script type="module" crossorigin src="[^"]+"><\/script>/,'');
+html=html.replace(/<link rel="stylesheet" crossorigin href="[^"]+">/,()=>`<style>${css}</style>`);
+const bootstrap=`window.SPRING_PREVIEW=true;window.SPRING_ASSETS=${JSON.stringify(images)};`;
+html=html.replace('</body>',()=>`<script>${bootstrap}</script><script type="module">${js.replaceAll('</script','<\\/script')}</script></body>`);
+const output=process.argv[2]||'/workspace/shared/downloads/spring-for-cats-dashboard.html';
+fs.writeFileSync(output,html);
+console.log(`Self-contained offline demo saved to ${output}. The live backend is not part of this HTML file.`);
