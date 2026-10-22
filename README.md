@@ -22,9 +22,9 @@ Run `npm run admin:create` in an interactive terminal. Enter the owner email and
 
 ## Dashboard
 
-- **Products:** add/edit products and images; set visibility and manual stock overrides; define Chicken/Tuna or other variants; set single/3/5 vial bundle prices; create badges such as “New arrival” or “Back in stock”, with an optional percentage discount (0 keeps the original price). Save a draft, then publish. Public catalogue reads only the published snapshot.
+- **Products:** add/edit products and images; set visibility and manual stock overrides; define Chicken/Tuna or other variants; set single/3/5 vial bundle prices and 10-capsule pack prices; create badges such as “New arrival” or “Back in stock”, with an optional percentage discount (0 keeps the original price). Save a draft, then publish. Public catalogue reads only the published snapshot.
 - **Website text & images:** hero, shop, story, announcement and promotion banner text; photo uploads; FAQs; waiver and policy text. Save draft, then publish.
-- **Stock by SKU:** edit physical quantities. These save immediately, independent of content drafts. Chicken and tuna use separate SKUs. All vial bundles of one product share a SKU and consume `quantity × units` (e.g. two bundles of three reserve six vials). New live SKUs start at **zero**; no real inventory is invented. Retired SKU records are retained for outstanding orders and auditability.
+- **Stock by SKU:** edit physical quantities. These save immediately, independent of content drafts. Chicken and tuna use separate SKUs. All vial bundles of one product share a SKU and consume `quantity × units` (e.g. two bundles of three reserve six vials). Capsules are sold only in packs of 10; two packs consume 20 physical capsules. New live SKUs start at **zero**; no real inventory is invented. Retired SKU records are retained for outstanding orders and auditability.
 - **Orders:** view the latest 500 requests, contact/delivery details, item and SKU snapshots, totals, status history, and notification state. Transitions: new → confirmed → fulfilled, or new/confirmed → cancelled. Cancelling restores reserved units exactly once. Fulfilled orders cannot be cancelled in this implementation.
 - **Order & email settings:** independently enable order requests and owner notification emails. Settings save immediately. Both are off in the live backend by default.
 
@@ -73,3 +73,11 @@ npm run export:preview
 Creates `/workspace/shared/downloads/spring-for-cats-dashboard.html`. The standalone file includes the design, generated cat image, catalogue and demo dashboard. Use the footer’s **Admin dashboard** link without signing in. Sample stock starts at 30; requests and edits are stored only in that browser. “Publish” updates only the local demo. No real orders, backend connections, credentials, customer emails, or real email delivery are included. Use sample customer details. The real backend requires hosting and the owner login above.
 
 Product images and initial prices came from the supplied FIP Cat Health archive; confirm rights and product information before launch. The hero image is generated in a photographic style.
+
+## Capsule packs
+
+All four capsule strengths are sold only as packs of 10. Initial pack prices are ten times the original individual capsule prices: 48 mg $65; 24 mg $45; 12 mg $25; 6 mg $15. These are starting prices, not benchmark-derived prices or automatic discounts. Edit the full pack price in the dashboard. Set Physical unit type to Capsule for new capsule products; validation requires a single ten-pack option.
+
+On startup, existing draft and published single-capsule listings are upgraded once to ten-packs. Physical SKUs/stock, custom content, promotions and historical order snapshots are retained. Existing bags referring to old single-capsule options are marked unavailable for review rather than silently converted. The offline demo migrates its saved catalogue too. Stock remains a count of individual capsules.
+
+CureFIP was requested as a benchmark, but access to curefip.com/www.curefip.com was blocked by the environment proxy. Domain additions were saved to the environment draft; their content and current pricing have not been verified or used.

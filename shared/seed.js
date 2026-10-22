@@ -1,3 +1,4 @@
+import {upgradeCapsulePacks} from './capsules.js';
 const initialCatalog = {
   "content": {
     "announcement": "A little care. A new beginning.",
@@ -300,4 +301,4 @@ const initialCatalog = {
 };
 
 for (const p of initialCatalog.products) for (const o of p.options) o.sku=(p.optionType==='bundle'?p.id:p.id+'-'+o.id).toUpperCase();
-export const seedCatalog=initialCatalog;
+export const seedCatalog=upgradeCapsulePacks(initialCatalog);

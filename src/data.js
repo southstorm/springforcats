@@ -1,8 +1,10 @@
+import {upgradeCapsulePacks} from '../shared/capsules.js';
 import {seedCatalog} from '../shared/seed.js';
 import {validateCatalog,catalogWithInventory,quoteBag} from '../shared/catalog.js';
 export const isPreview=Boolean(window.SPRING_PREVIEW);
 let demo;
 if(isPreview){try{demo=JSON.parse(localStorage.getItem('spring-admin-demo-v2'));}catch{}if(!demo?.draft||!demo?.live)demo={draft:structuredClone(seedCatalog),live:structuredClone(seedCatalog),revision:1,publishedRevision:1,uploads:{},inventory:Object.fromEntries(seedCatalog.products.flatMap(p=>p.options.map(o=>[o.sku,{sku:o.sku,quantity:30,revision:1}]))),orders:[],settings:{ordersEnabled:true,notificationsEnabled:false,notificationEmail:'',fromEmail:''},settingsRevision:1};}
+if(isPreview){const draft=upgradeCapsulePacks(demo.draft),live=upgradeCapsulePacks(demo.live);const draftChanged=JSON.stringify(draft)!==JSON.stringify(demo.draft),liveChanged=JSON.stringify(live)!==JSON.stringify(demo.live);if(draftChanged||liveChanged){demo={...demo,draft,live,revision:demo.revision+(draftChanged?1:0),publishedRevision:demo.publishedRevision+(liveChanged?1:0)};try{localStorage.setItem('spring-admin-demo-v2',JSON.stringify(demo));}catch{}}}
 export const imageUrl=path=>isPreview?(demo.uploads[path]||window.SPRING_ASSETS?.[path]||path):path;
 function persist(next){try{localStorage.setItem('spring-admin-demo-v2',JSON.stringify(next));}catch{throw Error('This browser has no room to save the demo. Try a smaller image or clear the demo’s saved data.');}demo=next;}
 const inventory=()=>Object.fromEntries(Object.entries(demo.inventory).map(([sku,row])=>[sku,row.quantity]));

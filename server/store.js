@@ -2,6 +2,7 @@ import { DatabaseSync } from 'node:sqlite';
 import {mkdirSync,chmodSync} from 'node:fs';
 import {join} from 'node:path';
 import {randomBytes,scryptSync,timingSafeEqual,createHash} from 'node:crypto';
+import {upgradeCapsulePacks} from '../shared/capsules.js';
 import {seedCatalog} from '../shared/seed.js';
 import {initializeOrders,orderStore} from './orders.js';
 import {validateCatalog} from '../shared/catalog.js';
@@ -16,6 +17,8 @@ export function openStore(dir){
  const seed=JSON.stringify(validateCatalog(seedCatalog));
  for(const name of ['draft','live'])db.prepare('INSERT OR IGNORE INTO documents VALUES (?,1,?)').run(name,seed);
  initializeOrders(db);
+ db.exec('BEGIN IMMEDIATE');
+ try{for(const name of ['draft','live']){const row=db.prepare('SELECT value FROM documents WHERE name=?').get(name);const next=upgradeCapsulePacks(JSON.parse(row.value));if(JSON.stringify(next)!==row.value)db.prepare('UPDATE documents SET value=?,revision=revision+1 WHERE name=?').run(JSON.stringify(next),name);}db.exec('COMMIT');}catch(e){db.exec('ROLLBACK');throw e;}
  function read(name){const r=db.prepare('SELECT revision,value FROM documents WHERE name=?').get(name);return {revision:r.revision,catalog:JSON.parse(r.value)};}
  const orders=orderStore(db,read);orders.syncInventory(read('live').catalog);
  function save(catalog,revision){

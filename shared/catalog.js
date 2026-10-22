@@ -1,3 +1,4 @@
+import {productUnitType} from './capsules.js';
 export const categories = {vials:'Vials',oral:'Oral care',kits:'Starter kits'};
 export const money = cents => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents/100);
 export const effectivePrice = (p,o) => p.promo.enabled ? Math.round(o.priceCents*(100-p.promo.percent)/100) : o.priceCents;
@@ -21,6 +22,7 @@ export function validateCatalog(data){
   if(!p||typeof p!=='object')fail('Invalid product.');
   const productId=id(p.id,'Product ID');if(seen.has(productId))fail('Product IDs must be unique.');seen.add(productId);
   if(!Object.hasOwn(categories,p.category))fail('Choose a valid category.');
+  const unitType=productUnitType(p);if(p.unitType!==undefined&&!['capsule','vial','item'].includes(p.unitType))fail('Choose a valid physical unit type.');
   if(!['none','flavor','bundle'].includes(p.optionType))fail('Choose a valid option type.');
   if(!p.promo||!Number.isInteger(p.promo.percent)||p.promo.percent<0||p.promo.percent>99)fail('Promo discount must be a whole number from 0 to 99.');
   const promo={enabled:bool(p.promo.enabled,'Promotion'),label:text(p.promo.label,'Promo label',80,true),percent:p.promo.percent};
@@ -37,8 +39,9 @@ export function validateCatalog(data){
    skuOwners.set(o.sku,{productId});
    return {sku:o.sku,id:optionId,label:text(o.label,'Option name',100,true),units:o.units,priceCents:o.priceCents,inStock:bool(o.inStock,'Option stock')};
   });
-  if(p.optionType==='bundle'&&new Set(options.map(o=>o.sku)).size!==1)fail('All bundles of a product must share the single-vial SKU.');
-  return {id:productId,name:text(p.name,'Product name',160,true),category:p.category,description:text(p.description,'Description',5000,true),note:text(p.note,'Short detail',300),image:image(p.image,'Product image'),published:bool(p.published,'Product visibility'),inStock:bool(p.inStock,'Product stock'),optionType:p.optionType,promo,options};
+  if(p.optionType==='bundle'&&new Set(options.map(o=>o.sku)).size!==1)fail('All bundles of a product must share one physical SKU.');
+  if(unitType==='capsule'&&(p.optionType!=='bundle'||options.length!==1||options[0].units!==10))fail('Capsule products must have one purchase option: a pack of 10 capsules.');
+  return {unitType,id:productId,name:text(p.name,'Product name',160,true),category:p.category,description:text(p.description,'Description',5000,true),note:text(p.note,'Short detail',300),image:image(p.image,'Product image'),published:bool(p.published,'Product visibility'),inStock:bool(p.inStock,'Product stock'),optionType:p.optionType,promo,options};
  });
  return {content,products};
 }
@@ -53,7 +56,7 @@ export function quoteBag(catalog,items,inventory=null){
   if(!p||!o)return {...item,error:'This option is no longer available.'};
   if(!optionAvailable(p,o))return {...item,error:'This option is out of stock.'};
   const unitPriceCents=effectivePrice(p,o),lineTotalCents=unitPriceCents*item.quantity;totalCents+=lineTotalCents;
-  return {...item,name:p.name,optionLabel:o.label,sku:o.sku,units:o.units,unitPriceCents,lineTotalCents};
+  return {...item,name:p.name,optionLabel:o.label,sku:o.sku,unitType:p.unitType,units:o.units,unitPriceCents,lineTotalCents};
  });
  if(inventory){const demand=new Map();for(const l of lines)if(!l.error)demand.set(l.sku,(demand.get(l.sku)||0)+l.units*l.quantity);for(const l of lines)if(!l.error&&(inventory[l.sku]||0)<demand.get(l.sku)){l.error='Not enough stock is available for these options.';totalCents-=l.lineTotalCents;}}
  return {currency:'USD',lines,totalCents,available:lines.every(l=>!l.error)};

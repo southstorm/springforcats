@@ -10,7 +10,7 @@
     "test": "playwright test",
     "start": "node server/index.js",
     "admin:create": "node server/create-owner.js",
-    "test:api": "node --test tests/api.test.js tests/orders.test.js",
+    "test:api": "node --test tests/api.test.js tests/orders.test.js tests/capsules.test.js",
     "export:preview": "npm run build && node scripts/export-preview.mjs",
     "backup": "node scripts/backup.mjs"
   },
