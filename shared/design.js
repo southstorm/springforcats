@@ -18,4 +18,9 @@ const quietDefaults={
  storyText:['When your cat needs care, clarity matters. Explore formats, compare packs and find the everyday supplies in one place.','Your veterinarian should guide treatment choices, dosage and administration.'],
  storyExtra:['Keep your veterinarian at the heart of treatment decisions. We make the collection easier to navigate, so you can focus on the companion who matters most.','Use the shop to compare available formats and pack sizes, then select the products in your cat’s care plan.']
 };
-export function upgradeSiteDesign(input){const catalog=structuredClone(input);for(const [key,[before,after]]of Object.entries(replacements))if(catalog.content[key]===before)catalog.content[key]=after;for(const [key,[before,after]]of Object.entries(quietDefaults))if(catalog.content[key]===before)catalog.content[key]=after;return catalog;}
+const gardenDefaults={
+ heroTitle:['FIP care essentials','Care for the cat you love.'],
+ heroImage:['/images/hero-cat.png','/images/hero-garden.png'],
+ heroAlt:['A ginger and white cat relaxing on a linen cushion in warm spring sunlight','Cats relaxing on a sunlit garden terrace surrounded by spring greenery']
+};
+export function upgradeSiteDesign(input){const catalog=structuredClone(input);for(const [key,[before,after]]of Object.entries(replacements))if(catalog.content[key]===before)catalog.content[key]=after;for(const [key,[before,after]]of Object.entries(quietDefaults))if(catalog.content[key]===before)catalog.content[key]=after;for(const [key,[before,after]]of Object.entries(gardenDefaults))if(catalog.content[key]===before)catalog.content[key]=after;return catalog;}

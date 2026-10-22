@@ -176,3 +176,34 @@ footer>.footer-brand{margin-right:auto}
  footer{gap:20px}
 }
 @media(max-width:380px){.hero h1{font-size:33px}.category-card{grid-template-columns:90px 1fr;gap:0 12px}.category-title h3{font-size:21px}}
+/* Garden hero: shared wide edges, generous photography, compact shopping. */
+.hero{position:relative;isolation:isolate;display:flex;align-items:center;max-width:1400px;width:calc(100% - 64px);min-height:590px;margin:24px auto 0;padding:64px 5%;gap:0;background:#EAE5D9;border-radius:14px;overflow:hidden}
+.hero-art.photo-art{position:absolute;inset:0;z-index:-2;width:100%;height:100%;max-height:none;min-height:0;aspect-ratio:auto;border-radius:0;background:transparent}
+.hero-photo{object-fit:cover;object-position:center 64%}
+.hero::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#F3F0EBE6 0%,#F3F0EBB8 28%,#F3F0EB30 49%,transparent 62%);pointer-events:none}
+.hero-copy{max-width:540px;width:45%;padding:0}
+.hero h1{font-size:clamp(48px,5.3vw,76px);line-height:1.05;font-weight:600;letter-spacing:-2.4px;color:var(--brand-text);max-width:11ch;margin:0 0 25px}
+.hero-copy>p{color:var(--ink);font-size:16px;line-height:1.75;max-width:380px;margin:0 0 30px}
+.collection-teaser.section,.shop.section{max-width:1400px;width:calc(100% - 64px);padding:52px 0 56px;margin:auto}
+.category-grid{gap:24px}
+.category-image{height:290px;background:var(--surface)}
+.category-image img{width:88%;height:250px;max-width:100%;object-fit:contain}
+.product-image{height:320px;background:var(--surface)}
+.product-image img{height:87%;max-width:90%;width:90%;object-fit:contain}
+.approach.section{max-width:none;background:var(--soft-teal);border-top:0;padding:52px max(32px,calc((100vw - 1400px)/2));margin:0}
+.approach-copy{max-width:900px}
+@media(min-width:1600px){.hero{min-height:650px}}
+@media(max-width:1100px){.hero{min-height:535px;padding:48px 4%}.hero-copy{width:47%}.hero h1{font-size:58px}.hero-copy>p{font-size:14px}.category-image{height:245px}.category-image img{height:210px}.product-image{height:280px}}
+@media(max-width:700px){
+ .hero{width:calc(100% - 32px);min-height:660px;margin:16px auto 0;padding:32px 26px;align-items:flex-start;border-radius:10px}
+ .hero-copy{width:100%;max-width:400px}.hero h1{font-size:46px;line-height:1.07;letter-spacing:-1.5px;max-width:11ch;margin-bottom:17px}
+ .hero-copy>p{font-size:13px;line-height:1.75;max-width:290px;margin-bottom:20px}
+ .hero-art.photo-art{max-height:none;aspect-ratio:auto;border-radius:0}
+ .hero-photo{object-position:73% bottom}
+ .hero::after{background:linear-gradient(180deg,#F3F0EBFA 0%,#F3F0EBEB 30%,#F3F0EB99 46%,transparent 65%)}
+ .collection-teaser.section,.shop.section{width:calc(100% - 32px);padding:34px 0 38px}
+ .category-card{grid-template-columns:132px 1fr;padding:12px;gap:0 15px}.category-image{height:150px}.category-image img{height:135px;width:95%}.category-title h3{font-size:23px}
+ .product-grid{gap:24px 12px}.product-image{height:220px}.product-image img{height:89%;width:94%;max-width:94%}
+ .approach.section{padding:34px 24px}
+}
+@media(max-width:380px){.hero{padding:28px 22px;min-height:650px}.hero h1{font-size:42px}.category-card{grid-template-columns:112px 1fr;gap:0 12px}.category-image{height:135px}.category-image img{height:120px}.product-image{height:195px}}

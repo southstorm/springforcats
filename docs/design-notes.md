@@ -5,7 +5,7 @@ Reviewed the four PDFs supplied by the owner: CureFIP home, injectable products,
 Spring for Cats adapts that visual confidence through the owner’s preferred green-led variant. Color proportions follow visual hierarchy rather than a fixed page-area ratio:
 
 - A warm ivory (#F3F0EB) canvas, white (#FFFFFF) navigation/cards/forms, and slate (#1E293B) text with restrained sans-serif headings.
-- Its existing original cat photograph, in a plain rectangular crop with no caption, rotation, or decorative frame.
+- An original generated garden-terrace photograph spanning the wide hero, with cats and richer spring greenery to the right and a quiet light area behind the text.
 - Product/category cards with prominent prices, clear ten-capsule pack labels and full-width purchase buttons.
 - A three-step guide to browsing formats, choosing packs, and building a bag.
 - Larger FAQ cards and clear section contrasts, with navigation visible on phones.
@@ -17,4 +17,6 @@ The branding, layout, copy, and generated cat photograph belong to this project'
 
 Product prices, stock behavior, order requests, optional promotion discounts, flavor variants, and ten-capsule pack requirements remain as configured for Spring for Cats. New default headline/copy is applied only to unchanged starter text; owner-customized text is retained in the database and offline demo.
 
-The landing page uses one white navigation header and a plain “FIP care essentials” hero with one supporting sentence and one shop button. The announcement, featured-product banner, values strip below the hero, hero eyebrow/secondary link/note/photo caption, oversized slogan graphic, and closing slogan band have been removed. Product-level promotional badges remain available. Product format and pack information stays beside products and category links. Default copy no longer repeats the clarity slogan across sections. Unused legacy content values remain stored for compatibility but are no longer exposed as dashboard editing controls.
+The landing page uses one white navigation header and a wide garden hero headed “Care for the cat you love.”, with one concrete product sentence and one green shop button. The announcement, featured-product banner, values strip below the hero, hero eyebrow/secondary link/note/photo caption, oversized slogan graphic, and closing slogan band have been removed. Product-level promotional badges remain available. Product format and pack information stays beside products and category links. Default copy no longer repeats the clarity slogan across sections. Unused legacy content values remain stored for compatibility but are no longer exposed as dashboard editing controls.
+
+The hero and product collection share wide outer edges. The headline uses one sans-serif font and semibold weight; the photograph supplies warmth and depth. Mobile uses a taller crop and a light gradient behind the text, keeping the cat visible below. Category and shop images are larger, with white card surfaces. The care-plan section uses pale sage for a change of rhythm. Untouched default hero text and imagery migrate automatically; owner-customized values are preserved.
